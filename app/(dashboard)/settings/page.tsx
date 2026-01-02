@@ -3,6 +3,7 @@ import { Settings, Bell, Shield, Eye, Palette, Globe } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ModeToggle } from "@/components/features/shared/mode-toggle";
 
 export default function SettingsPage() {
