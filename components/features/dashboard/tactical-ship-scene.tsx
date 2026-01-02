@@ -39,8 +39,8 @@ function Ship() {
                 </mesh>
 
                 {/* Bow (Pointed front) */}
-                <mesh position={[2.5, 0, 0]} rotation={[0, 0, 0]}>
-                    <coneGeometry args={[0.75, 1, 4]} rotation={[0, 0, -Math.PI / 2]} />
+                <mesh position={[2.5, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
+                    <coneGeometry args={[0.75, 1, 4]} />
                     <meshStandardMaterial color="#334155" />
                 </mesh>
 
