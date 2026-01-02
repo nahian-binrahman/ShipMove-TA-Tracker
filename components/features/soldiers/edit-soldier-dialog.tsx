@@ -107,36 +107,13 @@ export function EditSoldierDialog({ soldier, open, onOpenChange, onRefresh }: Ed
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="edit_service_number">Service No.</Label>
-                            <Input
-                                id="edit_service_number"
-                                {...form.register("service_number")}
-                                className="bg-secondary/30"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="edit_rank">Rank</Label>
-                            <Select
-                                value={form.watch("rank")}
-                                onValueChange={(v) => form.setValue("rank", v)}
-                            >
-                                <SelectTrigger className="bg-secondary/30">
-                                    <SelectValue placeholder="Select Rank" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-card">
-                                    <SelectItem value="PTE">Private</SelectItem>
-                                    <SelectItem value="CPL">Corporal</SelectItem>
-                                    <SelectItem value="SGT">Sergeant</SelectItem>
-                                    <SelectItem value="LT">Lieutenant</SelectItem>
-                                    <SelectItem value="CPT">Captain</SelectItem>
-                                    <SelectItem value="MAJ">Major</SelectItem>
-                                    <SelectItem value="LTC">Lt. Colonel</SelectItem>
-                                    <SelectItem value="COL">Colonel</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="edit_service_number">ID No.</Label>
+                        <Input
+                            id="edit_service_number"
+                            {...form.register("service_number")}
+                            className="bg-secondary/30"
+                        />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="edit_full_name">Full Name</Label>

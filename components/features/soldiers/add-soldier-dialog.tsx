@@ -47,7 +47,7 @@ export function AddSoldierDialog({ onRefresh }: { onRefresh: () => void }) {
         defaultValues: {
             service_number: "",
             full_name: "",
-            rank: "",
+            rank: "N/A",
             unit: "",
         },
     })
@@ -90,37 +90,17 @@ export function AddSoldierDialog({ onRefresh }: { onRefresh: () => void }) {
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="service_number">Service No.</Label>
-                            <Input
-                                id="service_number"
-                                placeholder="S1234567"
-                                {...form.register("service_number")}
-                                className="bg-secondary/30"
-                            />
-                            {form.formState.errors.service_number && (
-                                <p className="text-[10px] text-destructive">{form.formState.errors.service_number.message}</p>
-                            )}
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="rank">Rank</Label>
-                            <Select onValueChange={(v) => form.setValue("rank", v)}>
-                                <SelectTrigger className="bg-secondary/30">
-                                    <SelectValue placeholder="Select Rank" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-card">
-                                    <SelectItem value="PTE">Private</SelectItem>
-                                    <SelectItem value="CPL">Corporal</SelectItem>
-                                    <SelectItem value="SGT">Sergeant</SelectItem>
-                                    <SelectItem value="LT">Lieutenant</SelectItem>
-                                    <SelectItem value="CPT">Captain</SelectItem>
-                                    <SelectItem value="MAJ">Major</SelectItem>
-                                    <SelectItem value="LTC">Lt. Colonel</SelectItem>
-                                    <SelectItem value="COL">Colonel</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="service_number">ID No.</Label>
+                        <Input
+                            id="service_number"
+                            placeholder="ID-123456"
+                            {...form.register("service_number")}
+                            className="bg-secondary/30"
+                        />
+                        {form.formState.errors.service_number && (
+                            <p className="text-[10px] text-destructive">{form.formState.errors.service_number.message}</p>
+                        )}
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="full_name">Full Name</Label>

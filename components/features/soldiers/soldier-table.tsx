@@ -63,18 +63,16 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
             soldier.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             soldier.service_number.toLowerCase().includes(searchTerm.toLowerCase())
 
-        const matchesRank = rankFilter === "all" || soldier.rank === rankFilter
         const matchesStatus =
             statusFilter === "all" ||
             (statusFilter === "active" && soldier.is_active) ||
             (statusFilter === "inactive" && !soldier.is_active)
 
-        return matchesSearch && matchesRank && matchesStatus
+        return matchesSearch && matchesStatus
     })
 
     const resetFilters = () => {
         setSearchTerm("")
-        setRankFilter("all")
         setStatusFilter("all")
     }
 
@@ -85,27 +83,12 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                     <div className="relative flex-1 max-w-sm group">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                         <Input
-                            placeholder="Search by SN or Name..."
+                            placeholder="Search by ID or Name..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="pl-9 bg-card/50 border-border h-9 text-sm focus-visible:ring-primary/50"
                         />
                     </div>
-
-                    <Select value={rankFilter} onValueChange={setRankFilter}>
-                        <SelectTrigger className="w-[140px] bg-card/50 border-border h-9 text-xs">
-                            <SelectValue placeholder="All Ranks" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-popover border-border">
-                            <SelectItem value="all">All Ranks</SelectItem>
-                            <SelectItem value="PTE">Private</SelectItem>
-                            <SelectItem value="CPL">Corporal</SelectItem>
-                            <SelectItem value="SGT">Sergeant</SelectItem>
-                            <SelectItem value="LT">Lieutenant</SelectItem>
-                            <SelectItem value="CPT">Captain</SelectItem>
-                            <SelectItem value="MAJ">Major</SelectItem>
-                        </SelectContent>
-                    </Select>
 
                     <Select value={statusFilter} onValueChange={setStatusFilter}>
                         <SelectTrigger className="w-[130px] bg-card/50 border-border h-9 text-xs">
@@ -119,7 +102,7 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                     </Select>
                 </div>
 
-                {(searchTerm || rankFilter !== "all" || statusFilter !== "all") && (
+                {(searchTerm || statusFilter !== "all") && (
                     <Button variant="ghost" size="sm" onClick={resetFilters} className="text-muted-foreground hover:text-foreground">
                         <FilterX className="mr-2 h-4 w-4" /> Reset
                     </Button>
@@ -130,9 +113,8 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                 <Table>
                     <TableHeader className="bg-secondary/60">
                         <TableRow className="border-border hover:bg-transparent">
-                            <TableHead className="w-[140px] text-primary font-mono text-[10px] uppercase tracking-wider py-4 font-bold">Service No.</TableHead>
+                            <TableHead className="w-[140px] text-primary font-mono text-[10px] uppercase tracking-wider py-4 font-bold">ID No.</TableHead>
                             <TableHead className="text-primary font-mono text-[10px] uppercase tracking-wider font-bold">Full Name</TableHead>
-                            <TableHead className="text-primary font-mono text-[10px] uppercase tracking-wider font-bold">Rank</TableHead>
                             <TableHead className="text-primary font-mono text-[10px] uppercase tracking-wider font-bold">Primary Unit</TableHead>
                             <TableHead className="text-primary font-mono text-[10px] uppercase tracking-wider font-bold">Ops Status</TableHead>
                             <TableHead className="text-right text-primary font-mono text-[10px] uppercase tracking-wider font-bold">Actions</TableHead>
@@ -144,7 +126,6 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                                 <TableRow key={i} className="border-border/50">
                                     <TableCell><Skeleton className="h-6 w-20 bg-muted" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-48 bg-muted" /></TableCell>
-                                    <TableCell><Skeleton className="h-6 w-16 bg-muted" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-24 bg-muted" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-16 bg-muted" /></TableCell>
                                     <TableCell className="text-right"><Skeleton className="h-8 w-8 ml-auto rounded bg-muted" /></TableCell>
@@ -152,7 +133,7 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                             ))
                         ) : filteredData.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={6} className="h-80 text-center bg-secondary/20">
+                                <TableCell colSpan={5} className="h-80 text-center bg-secondary/20">
                                     <div className="flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
                                         <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-6 border border-border shadow-xl">
                                             <Filter className="h-8 w-8 text-muted-foreground/50" />
@@ -182,11 +163,6 @@ export function SoldierTable({ data, loading, onRefresh }: SoldierTableProps) {
                                                 <ChevronRight className="h-3 w-3" />
                                             </Button>
                                         </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline" className="font-mono text-[10px] border-border bg-secondary/30 text-muted-foreground uppercase tracking-tighter">
-                                            {soldier.rank}
-                                        </Badge>
                                     </TableCell>
                                     <TableCell className="text-muted-foreground text-sm font-medium">{soldier.unit}</TableCell>
                                     <TableCell>
